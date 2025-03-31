@@ -609,12 +609,7 @@ export const Game = new (class Game {
                 UIManager.killLeaderCache = undefined;
                 UIManager.oldKillLeaderId = undefined;
 
-                MapManager.safeZone.clear();
-                MapManager.pingGraphics.clear();
-                MapManager.pings.clear();
-                MapManager.pingsContainer.removeChildren();
-                MapManager.teammateIndicators.clear();
-                MapManager.teammateIndicatorContainer.removeChildren();
+                MapManager.reset();
 
                 this.playerNames.clear();
                 this._timeouts.clear();
