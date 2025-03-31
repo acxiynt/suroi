@@ -1657,6 +1657,26 @@ export const UIManager = new (class UIManager {
         this.oldKillLeaderId = this.killLeaderCache?.id ?? id;
         this.killLeaderCache = data;
     }
+    //cant find a better name of reset functions
+    resetUIManager(): void{
+        this.clearTeammateCache();
+        this.reportedPlayerIDs.clear();
+        this.killLeaderCache = undefined;
+        this.oldKillLeaderId = undefined;
+    }
+    resetCurrentUI(): void{
+        this.ui.teamContainer.html("");
+        this.ui.actionContainer.hide();
+        this.ui.gameOverOverlay.hide();
+        this.ui.canvas.removeClass("active");
+        this.ui.killLeaderLeader.text(getTranslatedString("msg_waiting_for_leader"));
+        this.ui.killLeaderCount.text("0");
+    }
+    fadeoutloading(): void{
+        this.ui.gameMenu.fadeOut(250);
+        this.ui.splashOptions.addClass("loading");
+        this.ui.loaderText.text("");
+    }
 })();
 
 class Wrapper<T> {

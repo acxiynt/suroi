@@ -576,9 +576,7 @@ export const Game = new (class Game {
         const ui = UIManager.ui;
 
         return await new Promise(resolve => {
-            ui.gameMenu.fadeOut(250);
-            ui.splashOptions.addClass("loading");
-            ui.loaderText.text("");
+            UIManager.fadeoutloading();
 
             SoundManager.stopAll();
 
@@ -586,12 +584,7 @@ export const Game = new (class Game {
                 this.pixi.stop();
                 ScreenRecordManager.endRecording();
                 void this.music?.play();
-                ui.teamContainer.html("");
-                ui.actionContainer.hide();
-                ui.gameOverOverlay.hide();
-                ui.canvas.removeClass("active");
-                ui.killLeaderLeader.text(getTranslatedString("msg_waiting_for_leader"));
-                ui.killLeaderCount.text("0");
+                UIManager.resetCurrentUI;
 
                 this.gameStarted = false;
                 this._socket?.close();
@@ -604,10 +597,8 @@ export const Game = new (class Game {
                 this.planes.clear();
                 CameraManager.container.removeChildren();
                 ParticleManager.clear();
-                UIManager.clearTeammateCache();
-                UIManager.reportedPlayerIDs.clear();
-                UIManager.killLeaderCache = undefined;
-                UIManager.oldKillLeaderId = undefined;
+                
+                UIManager.resetUIManager();
 
                 MapManager.reset();
 
