@@ -15,7 +15,7 @@ import { type GameObject } from "./gameObject";
 
 export class Explosion {
     readonly definition: ExplosionDefinition;
-
+    readonly decalFadeTime?: number
     constructor(
         readonly game: Game,
         definition: ReifiableDef<ExplosionDefinition>,
@@ -25,7 +25,6 @@ export class Explosion {
         readonly weapon?: GunItem | MeleeItem | ThrowableItem,
         readonly damageMod = 1,
         readonly objectsToIgnore = new Set<GameObject>(),
-        readonly decalfadetime?: number
     ) {
         this.definition = Explosions.reify(definition);
     }
@@ -152,7 +151,8 @@ export class Explosion {
                     randomRotation(),
                     this.layer
                 ),
-                (!this.decalfadetime)?(15):(this.decalfadetime)
+                //check if fade time is available, if not, then set the fade time to 15 seconds
+                (this.decalFadeTime) ? (this.decalFadeTime*1000) : (15000)
             );
 
             this.game.updateObjects = true;
