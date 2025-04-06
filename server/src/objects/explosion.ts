@@ -24,7 +24,8 @@ export class Explosion {
         readonly layer: Layer,
         readonly weapon?: GunItem | MeleeItem | ThrowableItem,
         readonly damageMod = 1,
-        readonly objectsToIgnore = new Set<GameObject>()
+        readonly objectsToIgnore = new Set<GameObject>(),
+        readonly decalfadetime?: number
     ) {
         this.definition = Explosions.reify(definition);
     }
@@ -143,14 +144,15 @@ export class Explosion {
         }
 
         if (this.definition.decal) {
-            this.game.grid.addObject(
+            this.game.grid.addTimedObject(
                 new Decal(
                     this.game,
                     this.definition.decal,
                     this.position,
                     randomRotation(),
                     this.layer
-                )
+                ),
+                (!this.decalfadetime)?(15):(this.decalfadetime)
             );
 
             this.game.updateObjects = true;
